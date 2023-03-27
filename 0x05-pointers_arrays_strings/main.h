@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 int _strlen(char *s);
 int _putchar(char c);
 void reset_to_98(int *n);
@@ -18,4 +19,6 @@ void puts_half(char *str);
 void print_array(int *a, int n);
 void swap_char(char *a, char *b);
 char *_strcpy(char *dest, char *src);
+int _atoi(char *s);
+
 #endif
