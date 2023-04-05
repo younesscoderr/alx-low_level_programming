@@ -6,6 +6,8 @@
 int _putchar(char c);
 int _sqrt(int n, int x);
 int is_divisible(int n, int d);
+int is_palindrome(char *s);
+int wildcmp(char *s1, char *s2);
 
 void _puts_recursion(char *s);
 void _print_rev_recursion(char *s);
