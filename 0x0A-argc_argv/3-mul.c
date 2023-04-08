@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	{
 		for (i = 1; i < argc; i++)
 		{
-			int x = strtol(argv[i], NULL, 10);
+			int x = atoi(argv[i]);
 
 			result = result * x;
 
