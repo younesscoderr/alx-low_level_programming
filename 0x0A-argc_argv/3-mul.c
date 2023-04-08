@@ -10,9 +10,9 @@
 
 int main(int argc, char *argv[])
 {
-	int i, result = 1;
+	int i, s = 1;
 
-	if (argc < 2)
+	if (argc <= 2)
 	{
 		printf("Error\n");
 		return (1);
@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
 		{
 			int x = atoi(argv[i]);
 
-			result = result * x;
+			s *= x;
 
 		}
-		printf("%d\n", result);
+		printf("%d\n", s);
 	}
 	return (0);
 }
