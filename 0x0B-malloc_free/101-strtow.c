@@ -1,4 +1,5 @@
 #include "main.h"
+#include <ctype.h>
 /**
  * count_words - counts the number of words in a string
  * @str: the string to count
@@ -76,14 +77,14 @@ char **strtow(char *str)
 	k = 0;
 	while (str[i] != '\0' && k < n)
 	{
-		if (str[i] != ' ')
+		if (isalnum(str[i]))
 		{
 			j = i;
 			while (str[j] != ' ' && str[j] != '\0')
 			{
 				j++;
 			}
-			words[k] = copy_word(str, i, j - 1);
+			words[k] = copy_word(str, i, j);
 			if (words[k] == NULL)
 			{
 				while (k >= 0)
