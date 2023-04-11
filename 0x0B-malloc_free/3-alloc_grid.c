@@ -1,5 +1,6 @@
 #include "main.h"
 
+void _free_grid(int **arr, int h);
 /**
  * alloc_grid -  returns a pointer to a 2 dimensional
  * array of integers.
@@ -40,7 +41,7 @@ int **alloc_grid(int width, int height)
 				}
 				else
 				{
-					free_grid(arr, i);
+					_free_grid(arr, i);
 					return (NULL);
 				}
 			}
@@ -54,13 +55,13 @@ int **alloc_grid(int width, int height)
 }
 
 /**
- * free_grid - frees a 2 dimensional grid previously created by alloc_grid
+ * _free_grid - frees a 2 dimensional grid previously created by alloc_grid
  *
  * @arr: pointer to the grid
  * @h: height of the grid
  *
  */
-void free_grid(int **arr, int h)
+void _free_grid(int **arr, int h)
 {
 	int i;
 
