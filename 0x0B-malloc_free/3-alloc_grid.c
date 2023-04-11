@@ -44,12 +44,14 @@ int **alloc_grid(int width, int height)
 				}
 				else
 				{
+					free(arr[i]);
 					return (NULL);
 				}
 			}
 		}
 		else
 		{
+			free(arr);
 			return (NULL);
 		}
 	}
