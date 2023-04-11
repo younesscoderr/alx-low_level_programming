@@ -12,7 +12,6 @@
  * and  return NULL on failure.
  *
  */
-
 int **alloc_grid(int width, int height)
 {
 	int w = width;
@@ -26,34 +25,48 @@ int **alloc_grid(int width, int height)
 	}
 	else
 	{
-		arr = malloc(h * sizeof(int));
-
+		arr = malloc(h * sizeof(int *));
 		if (arr != NULL)
 		{
 			for (i = 0; i < h; i++)
 			{
 				arr[i] = malloc(w * sizeof(int));
-
 				if (arr[i] != NULL)
 				{
 					for (j = 0; j < w; j++)
 					{
 						arr[i][j] = 0;
 					}
-
 				}
 				else
 				{
-					free(arr[i]);
+					free_grid(arr, i);
 					return (NULL);
 				}
 			}
 		}
 		else
 		{
-			free(arr);
 			return (NULL);
 		}
 	}
 	return (arr);
+}
+
+/**
+ * free_grid - frees a 2 dimensional grid previously created by alloc_grid
+ *
+ * @arr: pointer to the grid
+ * @h: height of the grid
+ *
+ */
+void free_grid(int **arr, int h)
+{
+	int i;
+
+	for (i = 0; i < h; i++)
+	{
+		free(arr[i]);
+	}
+	free(arr);
 }
