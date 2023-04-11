@@ -28,16 +28,16 @@ char *_strdup(char *str)
 		i = 0;
 		length = _str_len(str);
 
-		s = malloc(length * sizeof(char));
+		s = malloc((length + 1) * sizeof(char));
 
 		if (s != NULL)
 		{
-			while (i < length)
+			while (i <= length)
 			{
 				s[i] = str[i];
 				i++;
 			}
-			s[i] = '\0';
+
 		}
 		else
 		{
