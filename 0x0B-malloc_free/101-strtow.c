@@ -1,5 +1,26 @@
 #include "main.h"
 #include <ctype.h>
+
+/**
+ * word_len - Locates the index marking the end of the
+ *            first word contained within a string.
+ * @str: The string to be searched.
+ *
+ * Return: The index marking the end of the initial word pointed to by str.
+ */
+int word_len(char *str)
+{
+	int index = 0, len = 0;
+
+	while (*(str + index) && *(str + index) != ' ')
+	{
+		len++;
+		index++;
+	}
+
+	return (len);
+}
+
 /**
  * count_words - counts the number of words in a string
  * @str: the string to count
@@ -7,44 +28,21 @@
  */
 int count_words(char *str)
 {
-	int i, count;
+	int index = 0, words = 0, len = 0;
 
-	count = 0;
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
-			count++;
-	}
-	return (count);
-}
-/**
- * copy_word - copies a word from a string to a buffer
- * @str: the string to copy from
- * @start: the starting index of the word
- * @end: the ending index of the word
- * Return: a pointer to the buffer containing the word
- */
-char *copy_word(char *str, int start, int end)
-{
-	char *word;
-	int i;
+	for (index = 0; *(str + index); index++)
+		len++;
 
-	word = malloc((end - start + 2) * sizeof(char));
-
-	if (word == NULL)
+	for (index = 0; index < len; index++)
 	{
-		return (NULL);
-	}
-	else
-	{
-		for (i = start; i <= end; i++)
+		if (*(str + index) != ' ')
 		{
-			word[i - start] = str[i];
+			words++;
+			index += word_len(str + index);
 		}
-		word[i - start] = '\0';
-
-		return (word);
 	}
+
+	return (words);
 }
 
 /**
@@ -58,51 +56,44 @@ char *copy_word(char *str, int start, int end)
  */
 char **strtow(char *str)
 {
-	int i, j, k, n;
-	char **words;
+	char **strings;
+	int index = 0, words, w, letters, l;
 
 	if (str == NULL || str[0] == '\0')
-	{
-		return (NULL);
-	}
-	n = count_words(str);
-	if (n == 0)
 		return (NULL);
 
-	words = malloc(sizeof(char *) * (n + 1));
-	if (words == NULL)
+	words = count_words(str);
+	if (words == 0)
 		return (NULL);
 
-	i = 0;
-	k = 0;
-	while (str[i] != '\0' && k < n)
+	strings = malloc(sizeof(char *) * (words + 1));
+	if (strings == NULL)
+		return (NULL);
+
+	for (w = 0; w < words; w++)
 	{
-		if (!isspace(str[i]))
+		while (str[index] == ' ')
+			index++;
+
+		letters = word_len(str + index);
+
+		strings[w] = malloc(sizeof(char) * (letters + 1));
+
+		if (strings[w] == NULL)
 		{
-			j = i;
-			while (str[j] != ' ' && str[j] != '\0')
-			{
-				j++;
-			}
-			words[k] = copy_word(str, i, j);
-			if (words[k] == NULL)
-			{
-				while (k >= 0)
-				{
-					free(words[k]);
-					k--;
-				}
-				free(words);
-				return (NULL);
-			}
-			k++;
-			i = j;
+			for (; w >= 0; w--)
+				free(strings[w]);
+
+			free(strings);
+			return (NULL);
 		}
-		else
-		{
-			i++;
-		}
+
+		for (l = 0; l < letters; l++)
+			strings[w][l] = str[index++];
+
+		strings[w][l] = '\0';
 	}
-	words[k] = NULL;
-	return (words);
+	strings[w] = NULL;
+
+	return (strings);
 }
