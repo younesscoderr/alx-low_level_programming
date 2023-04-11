@@ -4,8 +4,8 @@
  * free_grid - frees a 2 dimensional grid  previously created
  * by alloc_grid
  *
- * @arr: pointer to the grid
- * @h: height of the grid
+ * @grid: pointer to the grid
+ * @height: height of the grid
  *
  */
 
