@@ -69,7 +69,7 @@ char **strtow(char *str)
 	if (n == 0)
 		return (NULL);
 
-	words = malloc(sizeof(char) * (n + 1));
+	words = malloc(sizeof(char *) * (n + 1));
 	if (words == NULL)
 		return (NULL);
 
@@ -77,7 +77,7 @@ char **strtow(char *str)
 	k = 0;
 	while (str[i] != '\0' && k < n)
 	{
-		if (isalnum(str[i]))
+		if (!isspace(str[i]))
 		{
 			j = i;
 			while (str[j] != ' ' && str[j] != '\0')
