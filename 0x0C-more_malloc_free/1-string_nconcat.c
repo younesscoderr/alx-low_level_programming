@@ -22,10 +22,10 @@ char *_strcpy(char *dest, char *src);
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int len1, len2;
+	unsigned int len2;
 	char *s3;
 
-	len1 = _str_len(s1);
+
 	len2 = _str_len(s2);
 
 	if (s1 == NULL)
@@ -41,7 +41,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		n = len2;
 	}
 
-	s3 = malloc(len1 + n + 1);
+	s3 = malloc(strlen(s1) + n + 1);
 
 	if (s3 == NULL)
 	{
