@@ -1,117 +1,91 @@
 #include "main.h"
-#include <stdlib.h>
-#include <ctype.h>
+/**
+ * isNumber - checks if a string is a number
+ * @s: string to check
+ * Return: 1 if number, 0 if not
+ */
+int isNumber(char *s)
+{
+	int i;
 
-int _strlen(char *s);
-int _isnumber(char *s);
+	for (i = 0; s[i]; i++)
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+	return (1);
+}
 
 /**
- * mul - multiplies two positive numbers.
- * @num1: first number.
- * @num2: second number.
+ * print_result - prints the result of the multiplication
+ * @result: array of integers
+ * @len: length of result
+ * Return: void
  */
-
-void mul(char *num1, char *num2)
+void print_result(int *result, int len)
 {
-	int len1 = _strlen(num1);
-	int len2 = _strlen(num2);
-	int len = len1 + len2;
-	int i, j, carry, n;
+	int i;
+
+	/* remove leading zeros */
+	for (i = 0; i < len && result[i] == 0; i++)
+		;
+
+	/* if all digits are 0, print 0 */
+	if (i == len)
+		printf("0");
+
+	/* print the result */
+	for (; i < len; i++)
+		printf("%d", result[i]);
+
+	printf("\n");
+}
+
+/**
+ * main - multiplies two positive numbers
+ * @ac: number of arguments
+ * @av: array of arguments
+ * Return: 0
+ */
+int main(int ac, char **av)
+{
+	int i, j, num1_len, num2_len;
 	int *result;
 
-	result = malloc(sizeof(int) * len);
+	if (ac != 3 || !isNumber(av[1]) || !isNumber(av[2]))
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
+	num1_len = strlen(av[1]);
+	num2_len = strlen(av[2]);
+
+	result = calloc(num1_len + num2_len, sizeof(int));
 	if (result == NULL)
 	{
 		printf("Error\n");
 		exit(98);
 	}
-	for (i = 0; i < len; i++)
-		result[i] = 0;
 
-	/* Skip leading zeros in num1 and num2 */
-	while (*num1 == '0' && *(num1 + 1))
+	/* multiply each digit of num1 with num2 */
+	for (i = num1_len - 1; i >= 0; i--)
 	{
-		num1++;
-		len1--;
-	}
-	while (*num2 == '0' && *(num2 + 1))
-	{
-		num2++;
-		len2--;
-	}
-
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		n = num1[i] - '0';
-		for (j = len2 - 1; j >= 0; j--)
+		for (j = num2_len - 1; j >= 0; j--)
 		{
-			carry += result[i + j + 1] + (n * (num2[j] - '0'));
-			result[i + j + 1] = carry % 10;
-			carry /= 10;
+			/* multiply each digit and add to result */
+			int mul = (av[1][i] - '0') * (av[2][j] - '0');
+
+			/* add to previous result */
+			int sum = result[i + j + 1] + mul;
+
+			/* update result */
+			result[i + j] += sum / 10;
+			result[i + j + 1] = sum % 10;
 		}
-		if (carry > 0)
-			result[i + j + 1] += carry;
 	}
-	i = result[0] == 0 ? 1 : 0;
-	while (i < len)
-	{
-		_putchar(result[i] + '0');
-		i++;
-	}
-	_putchar('\n');
+
+	/* print result and free the allocated memory */
+	print_result(result, num1_len + num2_len);
 	free(result);
-}
-
-
-/**
- * _strlen - returns the length of a string
- * @s: the string to measure
- *
- * Return: the length of the string
- */
-int _strlen(char *s)
-{
-	int i = 0;
-
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-/**
- * _isnumber - checks if a string is a valid number
- * @s: the string to check
- *
- * Return: 1 if true, 0 if false
- */
-int _isnumber(char *s)
-{
-	if (*s == '\0')
-		return (0);
-	while (*s)
-	{
-		if (!isdigit(*s))
-			return (0);
-		s++;
-	}
-	return (1);
-}
-
-/**
- * main - entry point
- * @argc: the number of arguments
- * @argv: the array of arguments
- *
- * Return: 0 on success, 98 on error
- */
-int main(int argc, char **argv)
-{
-	if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2]))
-	{
-		printf("Error\n");
-		exit(98);
-	}
-	mul(argv[1], argv[2]);
 	return (0);
 }
+
