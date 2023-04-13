@@ -27,6 +27,19 @@ void mul(char *num1, char *num2)
 	}
 	for (i = 0; i < len; i++)
 		result[i] = 0;
+
+	/* Skip leading zeros in num1 and num2 */
+	while (*num1 == '0' && *(num1 + 1))
+	{
+		num1++;
+		len1--;
+	}
+	while (*num2 == '0' && *(num2 + 1))
+	{
+		num2++;
+		len2--;
+	}
+
 	for (i = len1 - 1; i >= 0; i--)
 	{
 		carry = 0;
