@@ -1,7 +1,7 @@
 #include "main.h"
 
 char *_strncat(char *dest, char *src, int n);
-int _str_len(char *s);
+int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 
 /**
@@ -26,7 +26,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	char *s3;
 
 
-	len2 = _str_len(s2);
+	len2 = _strlen(s2);
 
 	if (s1 == NULL)
 	{
@@ -41,7 +41,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		n = len2;
 	}
 
-	s3 = malloc(strlen(s1) + n + 1);
+	s3 = malloc(_strlen(s1) + (n + 1));
 
 	if (s3 == NULL)
 	{
@@ -76,13 +76,13 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * _str_len - returns the length of a given string.
+ * _strlen - returns the length of a given string.
  * @s: a string to return its length.
  *
  * Return: length of s
  */
 
-int _str_len(char *s)
+int _strlen(char *s)
 {
 	int i = 0;
 
