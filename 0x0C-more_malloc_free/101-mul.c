@@ -20,8 +20,11 @@ void mul(char *num1, char *num2)
 	int *result;
 
 	result = malloc(sizeof(int) * len);
-	if (!result)
-		return;
+	if (result == NULL)
+	{
+		printf("Error\n");
+		exit(98);
+	}
 	for (i = 0; i < len; i++)
 		result[i] = 0;
 	for (i = len1 - 1; i >= 0; i--)
