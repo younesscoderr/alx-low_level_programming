@@ -3,8 +3,8 @@
 
 /**
  * main - prints the opcodes of its own.
- * @argc: argument count.
- * @argv: argument vector.
+ * @ac: argument count.
+ * @av: argument vector.
  *
  * Return: Always 0.
  */
